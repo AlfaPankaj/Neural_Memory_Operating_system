@@ -1,1 +1,1 @@
-# NMOS Package Initialization
+# NMOS package initialization.

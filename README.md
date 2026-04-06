@@ -147,8 +147,8 @@ NMOS is built on foundations from the following research breakthroughs:
 | Hybrid Scout Intent Classifier | ✅ Complete |
 | Asynchronous River Streaming | ✅ Complete |
 | Speculative Oracle-Draft Link | ✅ Complete |
-| HNSW-based Failure Memory | 📅 Planned |
-| Zero-Copy io_uring Integration | 📅 Planned |
+| HNSW-based Failure Memory | ✅ Complete |
+| Zero-Copy io_uring Integration | ✅ Complete |
 
 ---
 
