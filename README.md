@@ -36,6 +36,11 @@
 - **H2O (Heavy Hitter Oracle)**: Identifies and folds least important KV pages to stay within 4GB VRAM limits.
 - **VRAM Action Zone**: Dynamically manages the streaming window for 70B+ layer shards.
 
+### 🧷 Failure Memory (Online Intent Correction)
+- **Persistent Misprediction Log**: Stores partial-typing misroutes vs final intent in `nmos_failure_memory.json`.
+- **Similarity Retrieval**: Uses hashed-vector nearest matches to detect repeat routing mistakes.
+- **Scout Override Loop**: Applies learned intent correction before River prefetch scheduling.
+
 ---
 
 ## Architecture
@@ -80,6 +85,7 @@
 | Scout Accuracy | **90.0%** | Hybrid (SmolLM2-135M + Heuristics) |
 | Scout CPU Latency | **164.8 ms** | Real-time prediction during typing |
 | TTFT (Target) | **< 500 ms** | 80% of queries with $T_{\text{typing}} \geq 2\text{s}$ |
+| TTFT Validation Harness | **Available** | `run_nmos_phase4_benchmark.bat` writes JSON pass-rate report |
 
 ---
 
@@ -124,7 +130,22 @@ launcher_verify.bat
 
 # 3. Start the NMOS Shell
 python NMOS_SHELL.py
+
+# 4. Run Phase-4 TTFT benchmark harness
+run_nmos_phase4_benchmark.bat
 ```
+
+> **Important:** `python NMOS_SHELL.py` now uses an adaptive local profile by default.  
+> If local 72B GGUF is larger than available RAM, it auto-switches to `draft_then_oracle` for responsive first tokens.  
+> For production-like 70B latency/quality, use the remote profile: `run_nmos_remote_groq.bat`.
+
+### Runtime Flags (optional)
+
+- `NMOS_ENABLE_FAILURE_MEMORY=1` enables persistent Scout correction memory.
+- `NMOS_FAILURE_MEMORY_PATH=nmos_failure_memory.json` controls correction DB location.
+- `NMOS_FAILURE_MEMORY_SIMILARITY=0.78` sets override match threshold.
+- `NMOS_WARMUP_BEFORE_PROMPT=1` blocks startup until local Oracle is fully loaded.
+- `NMOS_BENCHMARK_OUTPUT=Extra/nmos_phase4_report.json` sets benchmark report path.
 
 ---
 
@@ -147,8 +168,9 @@ NMOS is built on foundations from the following research breakthroughs:
 | Hybrid Scout Intent Classifier | ✅ Complete |
 | Asynchronous River Streaming | ✅ Complete |
 | Speculative Oracle-Draft Link | ✅ Complete |
-| HNSW-based Failure Memory | ✅ Complete |
-| Zero-Copy io_uring Integration | ✅ Complete |
+| Failure Memory (Misprediction Override) | ✅ Implemented |
+| TTFT Benchmark Harness | ✅ Implemented |
+| Zero-Copy io_uring Integration | 📅 Planned |
 
 ---
 
