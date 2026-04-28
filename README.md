@@ -188,7 +188,8 @@ M.Sc. Information Technology — Lovely Professional University (LPU)
 
 ## Related Research
 
-**CHAARI 2.0** — A comprehensive Hinglish AI Agentic Runtime Interface. A privacy-first, full-duplex voice companion built on a two-node cryptographic mesh. [View CHAARI 2.0 →](h[ttps://github.com/AlfaPankaj/chaari-2.0](https://github.com/AlfaPankaj/CHAARI_2.0.git))
+**CHAARI 2.0** — A comprehensive Hinglish AI Agentic Runtime Interface. A privacy-first, full-duplex voice companion built on a two-node cryptographic mesh. [View CHAARI 2.0→
+(https://github.com/AlfaPankaj/CHAARI_2.0.git)
 
 <div align="center">
 
